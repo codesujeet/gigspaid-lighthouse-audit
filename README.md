@@ -1,5 +1,31 @@
 # gigspaid.com Lighthouse audit (mobile)
 
+Lighthouse (mobile) reports for **https://gigspaid.com/** and **https://gigspaid.com/#/work**, plus the five changes that would raise the Performance and Accessibility scores most, each tied to an exact element or file.
+
+## TL;DR
+
+- **Today:** Performance **77** (home) / **71** (work). Accessibility **88** / **91**. SEO 100 on both.
+- **The five fixes**, ranked by expected gain (details, evidence and code snippets below):
+  1. Remove the render-blocking Google Fonts stylesheet and `registerSW.js` from `index.html`.
+  2. Fix the three failing accessibility audits: `aria-label` on `span`s, two colour-contrast pairs, and a skipped heading level.
+  3. Stop the job grid shifting the layout on `/#/work` (CLS 0.219).
+  4. Shorten the JS-then-API request chain in front of the LCP text.
+  5. Allow the HTML document to be cached (`Cache-Control: no-store` on `/`).
+- **Caveat:** every run carried Lighthouse's "page loaded too slowly" warning, so Performance is good to about ±5 points, and the gains are estimates from Lighthouse's scoring curve, not measurements.
+
+**Contents:** [Summary](#summary) · [The 5 changes](#the-5-changes-ranked-by-expected-score-gain) · [Considered but not in the top 5](#considered-but-not-in-the-top-5) · [How to reproduce](#how-to-reproduce)
+
+**Files**
+
+```text
+reports/home.report.html|json     median of 3 runs, https://gigspaid.com/
+reports/work.report.html|json     median of 3 runs, https://gigspaid.com/#/work
+reports/all-runs/                 all six raw runs (home-1..3, work-1..3)
+package.json                      npm run audit | audit:home | audit:work
+```
+
+## Method
+
 Lighthouse 12.8.2, Chrome 157 (headless), default mobile emulation and default simulated throttling (RTT 150 ms, 1,638 Kbps, 4x CPU slowdown), run on 2026-11-10 against the live site. Every measured number below comes from the JSON reports in `reports/`, except where a line says "my curl" or "my calculation".
 
 ## Summary
