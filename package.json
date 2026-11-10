@@ -1,14 +1,14 @@
 {
   "name": "gigspaid-lighthouse-audit",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "Lighthouse mobile audit of gigspaid.com and gigspaid.com/#/work with the top 5 fixes",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "audit": "npm run audit:home && npm run audit:work",
+    "audit:home": "lighthouse https://gigspaid.com/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=html --output=json --output-path=reports/home --chrome-flags=--headless=new --quiet",
+    "audit:work": "lighthouse https://gigspaid.com/#/work --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=html --output=json --output-path=reports/work --chrome-flags=--headless=new --quiet"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "lighthouse": "^12.8.2"
   }
